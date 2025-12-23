@@ -1,0 +1,5 @@
+{
+  "name": "BizBot AI - WhatsApp Manager",
+  "description": "A React application that allows businesses to train an AI chatbot using PDF documents and integrate it with WhatsApp Business via QR code simulation.",
+  "requestFramePermissions": []
+}
