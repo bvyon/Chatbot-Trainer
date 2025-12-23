@@ -33,7 +33,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
       description: 'Modelo nativo optimizado para alta velocidad y gran ventana de contexto.',
       icon: Bot,
       color: 'emerald',
-      defaultModel: 'gemini-2.5-flash'
+      defaultModel: 'gemini-3-flash-preview'
     },
     {
       id: AIProvider.OPENAI,
@@ -168,27 +168,42 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     {isSelected && (
                         <div className="mt-4 pt-4 border-t border-slate-200/50 animate-fade-in">
                             <div className="flex flex-col md:flex-row gap-4">
-                                <div className="flex-1">
-                                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center">
-                                        <KeyRound size={14} className="mr-1.5" />
-                                        API Key {p.name}
-                                    </label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <Lock className="h-4 w-4 text-slate-400" />
+                                {/* Only show API key input for non-Gemini providers as per guidelines */}
+                                {p.id !== AIProvider.GEMINI && (
+                                    <div className="flex-1">
+                                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center">
+                                            <KeyRound size={14} className="mr-1.5" />
+                                            API Key {p.name}
+                                        </label>
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Lock className="h-4 w-4 text-slate-400" />
+                                            </div>
+                                            <input
+                                                type="password"
+                                                value={apiKeys[p.id]}
+                                                onChange={(e) => handleKeyChange(p.id, e.target.value)}
+                                                placeholder={`sk-... (Requerido)`}
+                                                className="w-full bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 block pl-10 p-2.5 shadow-inner font-mono transition-all"
+                                            />
                                         </div>
-                                        <input
-                                            type="password"
-                                            value={apiKeys[p.id]}
-                                            onChange={(e) => handleKeyChange(p.id, e.target.value)}
-                                            placeholder={`sk-... (Requerido)`}
-                                            className="w-full bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 block pl-10 p-2.5 shadow-inner font-mono transition-all"
-                                        />
+                                        <p className="text-[11px] text-slate-500 mt-1.5 ml-1">
+                                            La clave se almacena localmente en tu navegador durante esta sesión.
+                                        </p>
                                     </div>
-                                    <p className="text-[11px] text-slate-500 mt-1.5 ml-1">
-                                        La clave se almacena localmente en tu navegador durante esta sesión.
-                                    </p>
-                                </div>
+                                )}
+
+                                {/* Gemini provider specific message - no key input as per guidelines */}
+                                {p.id === AIProvider.GEMINI && (
+                                    <div className="flex-1">
+                                        <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-4 flex items-start space-x-3">
+                                            <Shield className="text-emerald-600 mt-0.5 shrink-0" size={18} />
+                                            <p className="text-sm text-emerald-800">
+                                                La API Key de Gemini se gestiona automáticamente a través de la plataforma segura. No es necesario configurarla manualmente.
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* OpenRouter Specific Model Selector */}
                                 {p.id === AIProvider.OPENROUTER && (
@@ -251,8 +266,8 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
         <div>
             <p className="font-bold mb-1">Seguridad de Credenciales</p>
             <p>
-                Para <strong>Google Gemini</strong>, el sistema puede usar la clave integrada si no proporcionas una.<br/>
-                Para <strong>OpenAI</strong> y <strong>OpenRouter</strong>, es obligatorio ingresar tu propia API Key aquí para evitar errores de autenticación.
+                Para <strong>Google Gemini</strong>, la autenticación se maneja de forma centralizada.<br/>
+                Para <strong>OpenAI</strong> y <strong>OpenRouter</strong>, es obligatorio ingresar tu propia API Key aquí para habilitar el motor.
             </p>
         </div>
       </div>

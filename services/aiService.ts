@@ -179,7 +179,8 @@ ${contextString ? contextString : "No se encontró contexto relevante para esta 
   try {
     switch (provider) {
       case AIProvider.GEMINI:
-        return await callGemini(userMessage, ragSystemInstruction, history, apiKey);
+        // For Gemini, we strictly use the injected environment API key.
+        return await callGemini(userMessage, ragSystemInstruction, history);
       case AIProvider.OPENAI:
       case AIProvider.OPENROUTER:
         return await callOpenAICompatible(provider, modelId, userMessage, ragSystemInstruction, history, apiKey);

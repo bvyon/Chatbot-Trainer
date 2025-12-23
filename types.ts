@@ -12,6 +12,12 @@ export enum AIProvider {
   OPENROUTER = 'OPENROUTER'
 }
 
+// Added missing ConnectionStatus enum used in WhatsAppConnect component
+export enum ConnectionStatus {
+  CONNECTED = 'CONNECTED',
+  DISCONNECTED = 'DISCONNECTED'
+}
+
 export interface ApiKeys {
   [AIProvider.GEMINI]: string;
   [AIProvider.OPENAI]: string;
@@ -51,12 +57,6 @@ export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
   timestamp: Date;
-}
-
-export enum ConnectionStatus {
-  DISCONNECTED = 'DISCONNECTED',
-  SCANNING = 'SCANNING',
-  CONNECTED = 'CONNECTED'
 }
 
 // Declaration for the global PDF.js library loaded via CDN

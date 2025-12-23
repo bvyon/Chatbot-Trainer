@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { AppView } from '../types';
 import { NAV_ITEMS, APP_NAME } from '../constants';
@@ -63,7 +64,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => 
             <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">Activo</span>
           </div>
           
-          <p className="text-xs text-slate-400 mb-3 relative z-10">Gemini 2.5 Flash Engine</p>
+          <p className="text-xs text-slate-400 mb-3 relative z-10">Gemini 3 Flash Preview</p>
           
           <div className="w-full bg-slate-700 rounded-full h-1.5 overflow-hidden">
             <div className="bg-gradient-to-r from-emerald-500 to-teal-400 h-1.5 rounded-full w-3/4 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
